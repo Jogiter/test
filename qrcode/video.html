@@ -17,6 +17,8 @@
     .container {
         overflow: hidden;
         padding: 0 15px;
+        margin-bottom: 240px;
+        background-color: #ccc;
     }
     video,
     canvas {
@@ -89,9 +91,11 @@
         return document.querySelector(e);
     };
 
+
+    var cobj, vobj;
     $('#start').onclick = function() {
-        var cobj = document.getElementById('myCanvas').getContext('2d');
-        var vobj = document.getElementById('myVideo');
+        cobj = document.getElementById('myCanvas').getContext('2d');
+        vobj = document.getElementById('myVideo');
         // var facingMode = $('[name="facingMode"]:checked').value;
         // if (facingMode === 'user') {
         //     facingMode = 'user';
