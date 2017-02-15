@@ -88,14 +88,26 @@
         return document.querySelector(e);
     };
 
+    $('[name="facingMode"]').onchange = function() {
+        $('#start').onclick();
+    };
+
     $('#start').onclick = function() {
         var cobj = document.getElementById('myCanvas').getContext('2d');
         var vobj = document.getElementById('myVideo');
+        var facingMode = $('[name="facingMode"]:checked').value;
+        if (facingMode === 'user') {
+            facingMode = 'user';
+        } else {
+            facingMode = {
+                exact: 'environment'
+            };
+        }
 
         var p = navigator.mediaDevices.getUserMedia({
             /*audio: true,*/
             video: {
-                facingMode: $('[name="facingMode"]:checked').value,
+                facingMode: facingMode,
                 // width: {
                 //     ideal: 1280
                 // },
