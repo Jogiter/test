@@ -102,15 +102,16 @@
 
         var p = navigator.mediaDevices.getUserMedia({
             /*audio: true,*/
-            video: {
-                facingMode: facingMode,
-                // width: {
-                //     ideal: 1280
-                // },
-                // height: {
-                //     ideal: 720
-                // }
-            }
+            video: { facingMode: { exact: "environment" }}
+            // video: {
+            //     facingMode: facingMode,
+            //     // width: {
+            //     //     ideal: 1280
+            //     // },
+            //     // height: {
+            //     //     ideal: 720
+            //     // }
+            // }
         });
 
         p.then(function(mediaStream) {
