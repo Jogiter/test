@@ -63,10 +63,10 @@
         <h2>Video Settings</h2>
         <div class="item">
             <label>
-                <input type="radio" name="facingMode" value="user" checked>前置摄像头
+                <input type="radio" name="facingMode" value="user">前置摄像头
             </label>
             <label>
-                <input type="radio" name="facingMode" value="environment">后置摄像头
+                <input type="radio" name="facingMode" value="environment" checked>后置摄像头
             </label>
         </div>
 
@@ -86,10 +86,6 @@
 <script>
     var $ = function(e) {
         return document.querySelector(e);
-    };
-
-    $('[name="facingMode"]').onchange = function() {
-        $('#start').onclick();
     };
 
     $('#start').onclick = function() {
