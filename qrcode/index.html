@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>QRCode</title>
+    <style>
+        #result {
+            display: inline-block;
+            margin-left: 15px;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body>
+    <h2>二维码生成器</h2>
+    <hr>
+
+    <div class="container">
+        <textarea name="txt" id="txt" cols="30" rows="10" placeholder="请输入二维码内容"></textarea>
+        <div id="result"></div>
+    </div>
+    <button class="btn">generate</button>
+
+
+    <script type="text/javascript" src="qrcode.e.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
