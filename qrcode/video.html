@@ -8,8 +8,6 @@
 <script src="https://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=2.5.2"></script>
 <style>
     * {
-        margin: 0;
-        padding: 0;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
@@ -62,6 +60,14 @@
 </style>
 </head>
 <body>
+    <h2><a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaDevices/getUserMedia">MediaDevices.getUserMedia()</a></h2>
+    <small><a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaDevices/getUserMedia#浏览器兼容">浏览器兼容</a></small>
+
+
+    <h4>Note:</h4>
+    <p>在华为p8上测试，仅可以打开前置摄像头，后置摄像头打不开</p>
+    <p>ios暂不支持该API</p>
+
     <div class="container">
         <h2>Video Settings</h2>
         <div class="item">
@@ -80,7 +86,6 @@
         <hr>
         <button id="start">Begin</button>
         <button id="myButton">截图</button>
-        <button id="myButton2">预览</button>
         <button id="myButton3">
             <a download="video.png">另存为</a>
         </button>
@@ -96,32 +101,32 @@
     $('#start').onclick = function() {
         cobj = document.getElementById('myCanvas').getContext('2d');
         vobj = document.getElementById('myVideo');
-        // var facingMode = $('[name="facingMode"]:checked').value;
-        // if (facingMode === 'user') {
-        //     facingMode = 'user';
-        // } else {
-        //     facingMode = {
-        //         exact: 'environment'
-        //     };
-        // }
+        var facingMode = $('[name="facingMode"]:checked').value;
+        if (facingMode === 'user') {
+            facingMode = 'user';
+        } else {
+            facingMode = {
+                exact: 'environment'
+            };
+        }
 
         var p = navigator.mediaDevices.getUserMedia({
             /*audio: true,*/
-            video: { facingMode: { exact: "environment" }}
-            // video: {
-            //     facingMode: facingMode,
-            //     // width: {
-            //     //     ideal: 1280
-            //     // },
-            //     // height: {
-            //     //     ideal: 720
-            //     // }
-            // }
+            video: {
+                facingMode: facingMode,
+                // width: {
+                //     ideal: 1280
+                // },
+                // height: {
+                //     ideal: 720
+                // }
+            }
         });
 
         p.then(function(mediaStream) {
             vobj.src = window.URL.createObjectURL(mediaStream);
             vobj.onloadedmetadata = function(e) {
+                console.log(e);
                 // Do something with the vobj here.
             };
             vobj.play();
@@ -134,9 +139,6 @@
         document.getElementById('myButton').addEventListener('click', function() {
             cobj.drawImage(vobj, 0, 0, 640, 480);
             document.getElementById('myButton3').children[0].href = cobj.canvas.toDataURL("image/png");
-        }, false);
-        document.getElementById('myButton2').addEventListener('click', function() {
-            window.open(cobj.canvas.toDataURL("image/png "), '_blank');
         }, false);
     }, false);
 
