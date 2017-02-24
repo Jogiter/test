@@ -1,0 +1,89 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  button(onclick="dopost()") post
+  button(onclick="doget()") get
+  button(onclick="dodelete()") delete
+  button(onclick="doput()") put
+  hr
+  p.result 这里显示ajax请求结果
+
+  script(src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js")
+  script(type="text/javascript").
+    var url = 'http://localhost:3000/users/user';
+    function ajax(option, done, fail) {
+        $.ajax({
+            url: option.url,
+            type: option.type
+        }).done(function(res) {
+            if (option.done) {
+                option.done(res);
+            } else {
+                console.log(res);
+            }
+        }).fail(function(err) {
+            if (option.fail) {
+                option.fail(err);
+            } else {
+                console.error(err);
+            }
+        })
+    }
+    function dopost() {
+        ajax({
+            url: url,
+            type: 'POST',
+            done: function(res) {
+                res = JSON.stringify(res);
+                $('.result').text(res);
+            },
+            fail: function(err) {
+                err = JSON.stringify(err);
+                $('.result').text(err);
+            }
+        })
+    }
+    function doget() {
+        ajax({
+            url: url,
+            type: 'GET',
+            done: function(res) {
+                res = JSON.stringify(res);
+                $('.result').text(res);
+            },
+            fail: function(err) {
+                err = JSON.stringify(err);
+                $('.result').text(err);
+            }
+        })
+    }
+    function dodelete() {
+        ajax({
+            url: url,
+            type: 'POST',
+            done: function(res) {
+                res = JSON.stringify(res);
+                $('.result').text(res);
+            },
+            fail: function(err) {
+                err = JSON.stringify(err);
+                $('.result').text(err);
+            }
+        })
+    }
+    function doput() {
+        ajax({
+            url: url,
+            type: 'POST',
+            done: function(res) {
+                res = JSON.stringify(res);
+                $('.result').text(res);
+            },
+            fail: function(err) {
+                err = JSON.stringify(err);
+                $('.result').text(err);
+            }
+        })
+    }
