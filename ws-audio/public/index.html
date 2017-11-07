@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>webSocket echo test</title>
+</head>
+<body>
+	<h1>WebSocket Echo</h1>
+	<small>Lukas Graham - 7 Years.mp3</small>
+	<p>play music with socket, so we can hide the source</p>
+	<h2>Latency: <span id="latency"></span>ms</h2>
+
+	<div class="buttons">
+		<button class="play">play</button>
+		<button class="resume">resume</button>
+		<button class="suspend">suspend</button>
+	</div>
+
+	<script>
+		var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		var source;
+		var play = document.querySelector('.play');
+		var resume = document.querySelector('.resume');
+		var suspend = document.querySelector('.suspend');
+
+		getData(); // loaded the song
+
+	  	play.onclick = function() {
+	  		source.start(0); // play the audio
+ 	 		play.setAttribute('disabled', 'disabled');
+		}
+
+		resume.onclick = function() {
+		  	audioCtx.resume();
+		}
+
+		suspend.onclick = function() {
+	 	 	audioCtx.suspend();
+		}
+
+		function getData() {
+			var lastMessage;
+			var ws = new WebSocket('ws://localhost:3000')
+			ws.onload = function() {
+				ping()
+			}
+			ws.onmessage = function(ev) {
+				lastMessage = new Date().getTime()
+				source = audioCtx.createBufferSource();
+				audioCtx.addEventListener('loaded', function() {
+					source.start(0);
+				})
+				var reader = new FileReader();
+				reader.addEventListener("loadend", function() {
+					var audioData = reader.result;
+					audioCtx.decodeAudioData(audioData, function(buffer) {
+				        source.buffer = buffer;
+				        source.connect(audioCtx.destination);
+				        source.loop = true;
+				        // other source settings
+			      	}, function(e) {
+			      		"Error with decoding audio data" + e.err
+			      	});
+				});
+				reader.readAsArrayBuffer(ev.data);
+
+				document.getElementById('latency').innerHTML = new Date().getTime() - lastMessage;
+			}
+		}
+	</script>
+</body>
+</html>
