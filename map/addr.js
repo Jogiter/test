@@ -32,7 +32,7 @@ function getLocation(done, fail) {
 
 getLocation(function (data) {
 	console.log(data)
-	console.log(data.addressComponent.city);
+	alert(data.addressComponent.city);
 }, function (e) {
-	console.log(e);
+	alert(e);
 })
