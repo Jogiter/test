@@ -1,0 +1,32 @@
+{
+  "name": "jogiter",
+  "version": "1.0.0",
+  "description": "jogiter cli",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint index.js bin lib"
+  },
+  "bin": {
+    "jogiter": "./bin/jogiter"
+  },
+  "keywords": [
+    "jogiter",
+    "cli"
+  ],
+  "author": "jogiter",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "dependencies": {
+    "commander": "^2.12.2",
+    "download-git-repo": "^1.0.1",
+    "say": "^0.14.0"
+  }
+}
