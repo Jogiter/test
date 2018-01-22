@@ -13,10 +13,24 @@ function playSound(e) {
 	audio.play();
 }
 
+function togglePlay() {
+	var className = 'playing';
+	var isPlaying = $music.classList.contains(className);
+	if (isPlaying) {
+		rythm.stop();
+		$music.classList.remove(className);
+	} else {
+		rythm.start();
+		$music.classList.add(className);
+	}
+}
+
+let rythm = new Rythm();
+let source;
+let $music = document.querySelector('.rythm-bass');
+
 setTimeout(function() {
-	let rythm = new Rythm();
-	let source;
-	rythm.setMusic('https://m10.music.126.net/20180122184736/8daf965222132307f3d744ec782feef8/ymusic/ef7a/b4ba/8d00/8561593800d5958a54746dce9e04a252.mp3');
+	rythm.setMusic('./music/dream.mp3');
 	rythm.addRythm('rythm-bass', 'jump', 0, 10)
 	rythm.start();
 }, 500);
@@ -24,3 +38,4 @@ setTimeout(function() {
 const keys = Array.from(document.querySelectorAll('.key'));
 keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 window.addEventListener('keydown', playSound);
+$music.addEventListener('click', togglePlay, false);
