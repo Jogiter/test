@@ -16,7 +16,7 @@ function playSound(e) {
 setTimeout(function() {
 	let rythm = new Rythm();
 	let source;
-	rythm.setMusic('http://m10.music.126.net/20180122184736/8daf965222132307f3d744ec782feef8/ymusic/ef7a/b4ba/8d00/8561593800d5958a54746dce9e04a252.mp3');
+	rythm.setMusic('https://m10.music.126.net/20180122184736/8daf965222132307f3d744ec782feef8/ymusic/ef7a/b4ba/8d00/8561593800d5958a54746dce9e04a252.mp3');
 	rythm.addRythm('rythm-bass', 'jump', 0, 10)
 	rythm.start();
 }, 500);
