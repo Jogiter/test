@@ -45,13 +45,17 @@
         }
 		}).then(canvas => {
 
-			$(canvas).css({
-		   	position: 'absolute',
-		   	top: '0',
-		   	left: '0',
-	  	 	visibility: 'hidden'
+			var img = new Image()
+			img.src = canvas.toDataURL('image/jpeg')
+
+			$(img).css({
+				position: 'absolute',
+				top: '0',
+				left: '0',
+				width: '100%',
+				visibility: 'hidden'
 			});
-    	document.body.appendChild(canvas)
+			document.body.appendChild(img)
 		});
 	</script>
 </body>
