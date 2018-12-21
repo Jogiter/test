@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +13,13 @@
 			color: #ff053c;
 			font-weight: bold;
 		}
-		button {
-			position: fixed;
-			bottom: 0;
-			left: 0;
+
+		img {
+			max-width: 100%;
+		}
+
+		.btn {
+			margin-top: 100px;
 			font-size: 24px;
 			outline: none;
 			padding: 10px 5px;
@@ -26,9 +30,11 @@
 		}
 	</style>
 </head>
+
 <body>
 	<div id="capture" style="padding: 10px; background: #f5da55">
-    <h4 style="color: #000; ">Hello world!</h4>
+		<img id="source" src="https://img.jogiter.cn/ic_vip.png" alt="">
+		<h4 style="color: #000; ">Hello world!</h4>
 		<p>Screenshots with JavaScript</p>
 		<h4 style="color: #000; ">Hello world!</h4>
 		<p>Screenshots with JavaScript</p>
@@ -42,38 +48,73 @@
 		<p>Screenshots with JavaScript</p>
 		<p class="hide">this a hide msg</p>
 	</div>
-	<button>toggle image</button>
+	<div class="btn">
+		<button id="draw">draw image</button>
+		<button id="toggle">toggle image</button>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>
 	<script>
+		function toDataURL(src, callback, outputFormat) {
+			var img = new Image();
+			img.crossOrigin = 'Anonymous';
+			img.onload = function() {
+				var canvas = document.createElement('CANVAS');
+				var ctx = canvas.getContext('2d');
+				var dataURL;
+				canvas.height = this.naturalHeight;
+				canvas.width = this.naturalWidth;
+				ctx.drawImage(this, 0, 0);
+				dataURL = canvas.toDataURL(outputFormat);
+				callback(dataURL);
+			};
+			img.src = src;
+			if (img.complete || img.complete === undefined) {
+				img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+				img.src = src;
+			}
+		}
 		new VConsole()
 
-		html2canvas(document.querySelector("#capture"), {
-			allowTaint: true,
-        onclone: function (el) {
-          console.log(el);
-          $(el).find('.hide').show()
-          return el
-        }
-		}).then(canvas => {
+		// 将图片转换成 base64 格式，从而避免 cors 问题
+		// 所有的图片。 img[src] css 中的 url('') 都需要替换成 base64
+		var $img = $('#source')
+		var src = $img.attr('src')
+		$img.attr('src',
+			toDataURL(src, function(b64) {
+				$img.attr('src', b64)
+			})
+		)
 
-			var img = new Image()
-			img.src = canvas.toDataURL('image/jpeg')
+		$('#draw').click(function() {
+			html2canvas(document.querySelector("#capture"), {
+				allowTaint: true,
+				onclone: function(el) {
+					console.log(el);
+					$(el).find('.hide').show()
+					return el
+				}
+			}).then(canvas => {
+				var img = new Image()
+				img.id = 'saveImage'
+				img.src = canvas.toDataURL('image/jpeg')
 
-			$(img).css({
-				position: 'absolute',
-				top: '0',
-				left: '0',
-				width: '100%',
-				visibility: 'hidden'
+				$(img).css({
+					position: 'absolute',
+					top: '0',
+					left: '0',
+					width: '100%',
+					visibility: 'hidden'
+				});
+				document.body.appendChild(img)
 			});
-			document.body.appendChild(img)
-		});
+		})
 
-		$('button').click(function() {
-			var $img = $('img')
-			if ($img.css('visibility')  === 'visible') {
+
+		$('#toggle').click(function() {
+			var $img = $('#saveImage')
+			if ($img.css('visibility') === 'visible') {
 				$img.css('visibility', 'hidden')
 			} else {
 				$img.css('visibility', 'visible')
@@ -81,4 +122,5 @@
 		})
 	</script>
 </body>
+
 </html>
