@@ -19,6 +19,9 @@
 		}
 
 		.btn {
+			position: fixed;
+			bottom: 0;
+			left: 0;
 			margin-top: 100px;
 			font-size: 24px;
 			outline: none;
@@ -34,103 +37,29 @@
 <body>
 	<div id="capture" style="padding: 10px; background: #f5da55">
 		<img id="source" src="https://img.jogiter.cn/ic_vip.png" alt="">
-		<h4 style="color: #000; ">Hello world!</h4>
-		<p>Screenshots with JavaScript</p>
-		<h4 style="color: #000; ">Hello world!</h4>
-		<p>Screenshots with JavaScript</p>
-		<h4 style="color: #000; ">Hello world!</h4>
-		<p>Screenshots with JavaScript</p>
-		<h4 style="color: #000; ">Hello world!</h4>
-		<p>Screenshots with JavaScript</p>
-		<h4 style="color: #000; ">Hello world!</h4>
-		<p>Screenshots with JavaScript</p>
-		<h4 style="color: #000; ">Hello world!</h4>
-		<p>Screenshots with JavaScript</p>
+		<ul>
+			<li>
+				<p>
+					<a href="https://github.com/davidshimjs/qrcodejs">Cross-browser QRCode generator for javascript</a>
+				</p>
+			</li>
+			<li>
+				<p>
+					<a href="https://github.com/niklasvh/html2canvas">Screenshots with JavaScript</a>
+				</p>
+			</li>
+			<li>
+				<p>
+					<a href="https://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript#answer-20285053">convert image into base64 string using javascript</a>
+				</p>
+			</li>
+		</ul>
 		<div id="drawTable"></div>
 		<p class="hide">this a hide msg</p>
 	</div>
-	<div class="btn">
-		<button id="draw">draw image</button>
-		<button id="toggle">toggle image</button>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-	<script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>
-	<script>
-		function toDataURL(src, callback, outputFormat) {
-			var img = new Image();
-			img.crossOrigin = 'Anonymous';
-			img.onload = function() {
-				var canvas = document.createElement('CANVAS');
-				var ctx = canvas.getContext('2d');
-				var dataURL;
-				canvas.height = this.naturalHeight;
-				canvas.width = this.naturalWidth;
-				ctx.drawImage(this, 0, 0);
-				dataURL = canvas.toDataURL(outputFormat);
-				callback(dataURL);
-			};
-			img.src = src;
-			if (img.complete || img.complete === undefined) {
-				img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-				img.src = src;
-			}
-		}
-		new VConsole()
-
-		// 将图片转换成 base64 格式，从而避免 cors 问题
-		// 所有的图片。 img[src] css 中的 url('') 都需要替换成 base64
-		var $img = $('#source')
-		var src = $img.attr('src')
-		$img.attr('src',
-			toDataURL(src, function(b64) {
-				$img.attr('src', b64)
-			})
-		)
-
-		$('#draw').click(function() {
-			if ($('#saveImage').length) {
-				return
-			}
-
-			html2canvas(document.querySelector("#capture"), {
-				allowTaint: true,
-				onclone: function(el) {
-					var url = location.href
-					$(el).find('.hide').show()
-					$(el).find('#drawTable').qrcode({
-						render: 'table',
-						text: url
-					})
-					return el
-				}
-			}).then(canvas => {
-				var img = new Image()
-				img.id = 'saveImage'
-				img.src = canvas.toDataURL('image/jpeg')
-
-				$(img).css({
-					position: 'absolute',
-					top: '0',
-					left: '0',
-					width: '100%',
-					visibility: 'hidden'
-				});
-				document.body.appendChild(img)
-			});
-		})
-
-
-		$('#toggle').click(function() {
-			var $img = $('#saveImage')
-			if ($img.css('visibility') === 'visible') {
-				$img.css('visibility', 'hidden')
-			} else {
-				$img.css('visibility', 'visible')
-			}
-		})
-	</script>
+	<script src="./qrcode.js"></script>
+	<script src="./index.js"></script>
 </body>
 
 </html>
