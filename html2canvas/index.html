@@ -46,6 +46,7 @@
 		<p>Screenshots with JavaScript</p>
 		<h4 style="color: #000; ">Hello world!</h4>
 		<p>Screenshots with JavaScript</p>
+		<div id="drawTable"></div>
 		<p class="hide">this a hide msg</p>
 	</div>
 	<div class="btn">
@@ -54,6 +55,7 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>
 	<script>
 		function toDataURL(src, callback, outputFormat) {
@@ -88,11 +90,19 @@
 		)
 
 		$('#draw').click(function() {
+			if ($('#saveImage').length) {
+				return
+			}
+
 			html2canvas(document.querySelector("#capture"), {
 				allowTaint: true,
 				onclone: function(el) {
-					console.log(el);
+					var url = location.href
 					$(el).find('.hide').show()
+					$(el).find('#drawTable').qrcode({
+						render: 'table',
+						text: url
+					})
 					return el
 				}
 			}).then(canvas => {
