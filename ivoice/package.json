@@ -1,0 +1,11 @@
+{
+  "name": "ivoice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "blueimp-md5": "^2.10.0",
+    "js-base64": "^2.4.8"
+  }
+}

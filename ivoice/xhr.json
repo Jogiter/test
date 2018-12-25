@@ -1,0 +1,14 @@
+{
+  "type": "POST",
+  "url": "https://api.xfyun.cn/v1/service/v1/tts",
+  "headers": {
+    "X-Appid": "5ab0686d",
+    "X-CurTime": 1531997183,
+    "X-Param": "eyJhdWYiOiJhdWRpby9MMTY7cmF0ZT0xNjAwMCIsImF1ZSI6ImxhbWUiLCJ2b2ljZV9uYW1lIjoieGlhb3lhbiJ9",
+    "X-CheckSum": "327b3933ec80ad5523bfcfd56eeb2d5b",
+    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+  },
+  "data": {
+    "text": "科大讯飞是中国最大的智能语音技术提供商"
+  }
+}
