@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+	<title>微信直接分享图片需求</title>
+	<link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 	<style>
 		.hide {
 			display: none;
+		}
+
+		p.hide {
 			color: #ff053c;
 			font-weight: bold;
 		}
 
 		img {
 			max-width: 100%;
+			vertical-align: top;
 		}
 
-		.btn {
-			position: fixed;
-			bottom: 0;
-			left: 0;
-			margin-top: 100px;
-			font-size: 24px;
-			outline: none;
-			padding: 10px 5px;
-			border: 1px solid red;
-			color: #fff;
-			background-color: #ff053c;
-			border-radius: 5px;
+		.inline-block {
+			display: inline-block;
+			vertical-align: middle;
 		}
 	</style>
 </head>
 
 <body>
 	<div id="capture" style="padding: 10px; background: #f5da55">
-		<img id="source" src="https://img.jogiter.cn/ic_vip.png" alt="">
+		<img id="source" src="https://img.jogiter.cn/tennis/fdr.jpg" alt="">
 		<ul>
 			<li>
 				<p>
@@ -53,9 +48,19 @@
 					<a href="https://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript#answer-20285053">convert image into base64 string using javascript</a>
 				</p>
 			</li>
+			<li>
+				<p>
+					<a href="https://html2canvas.hertzen.com/configuration">html2canvas</a>
+				</p>
+			</li>
 		</ul>
-		<div id="drawTable"></div>
-		<p class="hide">this a hide msg</p>
+		<div>
+			<div class="inline-block" id="drawTable"></div>
+			<div class="inline-block">
+				<p>长按保存图片</p>
+			</div>
+		</div>
+		<p class="hide">The world is a fine place and worth fighting for !</p>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 	<script src="./qrcode.js"></script>
