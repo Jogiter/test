@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body,
+		html {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		canvas {
+			max-width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<canvas class="my-canvas" width=300 height=300></canvas>
+
+	<script>
+		function setupCanvas(canvas) {
+			// Get the device pixel ratio, falling back to 1.
+			var dpr = window.devicePixelRatio || 1;
+			// Get the size of the canvas in CSS pixels.
+			var rect = canvas.getBoundingClientRect();
+			// Give the canvas pixel dimensions of their CSS
+			// size * the device pixel ratio.
+			canvas.width = rect.width * dpr;
+			canvas.height = rect.height * dpr;
+			var ctx = canvas.getContext('2d');
+			// Scale all drawing operations by the dpr, so you
+			// don't have to worry about the difference.
+			ctx.scale(dpr, dpr);
+			return ctx;
+		}
+
+		// Now this line will be the same size on the page
+		// but will look sharper on high-DPI devices!
+		var ctx = setupCanvas(document.querySelector('.my-canvas'));
+		ctx.mozImageSmoothingEnabled = false;
+ 		ctx.webkitImageSmoothingEnabled = false;
+	 	ctx.msImageSmoothingEnabled = false;
+	 	ctx.imageSmoothingEnabled = false;
+
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(250, 250);
+		ctx.lineTo(140, 280);
+		ctx.stroke();
+
+		var img = new Image()
+		img.onload = function() {
+			ctx.drawImage(img, 0, 0, 200, 93)
+		}
+		img.src = 'https://img.jogiter.cn/tennis/fdr.jpg'
+	</script>
+</body>
+
+</html>
