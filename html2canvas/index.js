@@ -54,6 +54,15 @@ function checkQrcodeFinished(callback) {
 	}, 20);
 }
 
+(function events() {
+	function handleClick() {
+		alert(this.textContent || this.innerHTML)
+	}
+
+	document.querySelector('#again').addEventListener('click', handleClick, false)
+	document.querySelector('#share').addEventListener('click', handleClick, false)
+})();
+
 checkQrcodeFinished(function () {
 	html2canvas(document.querySelector("#capture"), {
 		useCORS: true,
