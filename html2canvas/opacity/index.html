@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>微信直接分享图片需求</title>
+	<link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+	<style>
+		.hide {
+			display: none;
+		}
+
+		p.hide {
+			color: #ff053c;
+			font-weight: bold;
+		}
+
+		img {
+			max-width: 100%;
+			vertical-align: top;
+		}
+
+		.inline-block {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.save-image {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		/* 隐藏二维码 */
+		.cover {
+			position: fixed;
+			background-color: #f5da54;
+			left: 0;
+			right: 0;
+			bottom: 320px;
+			display: flex;
+			justify-content: space-around;
+			padding: 20px;
+			z-index: 2;
+		}
+
+		.cover button {
+			border: 0;
+			outline: none;
+			background: #0c0208;
+			padding: 10px 15px;
+			border-radius: 4px;
+			color: #f3e533;
+		  margin-bottom: 60px;
+		}
+		.cover p {
+			position: absolute;
+			bottom: 0;
+			text-align: center;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="capture" style="padding: 10px; background: #f5da55">
+		<img id="source" src="https://img.jogiter.cn/tennis/fdr.jpg" alt="">
+		<ul>
+			<li>
+				<p>
+					<a href="https://github.com/davidshimjs/qrcodejs">Cross-browser QRCode generator for javascript</a>
+				</p>
+			</li>
+			<li>
+				<p>
+					<a href="https://github.com/niklasvh/html2canvas">Screenshots with JavaScript</a>
+				</p>
+			</li>
+			<li>
+				<p>
+					<a href="https://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript#answer-20285053">convert image into base64 string using javascript</a>
+				</p>
+			</li>
+			<li>
+				<p>
+					<a href="https://html2canvas.hertzen.com/configuration">html2canvas</a>
+				</p>
+			</li>
+		</ul>
+		<div>
+			<div class="inline-block" id="drawTable"></div>
+			<div class="inline-block">
+				<p>长按保存图片</p>
+			</div>
+		</div>
+		<p class="hide">The world is a fine place and worth fighting for !</p>
+	</div>
+
+	<div class="cover">
+		<button id="again">再测一次</button>
+		<button id="share">点击分享</button>
+		<p>长按图片保存并分享</p>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+	<script src="./qrcode.js"></script>
+	<script src="./index.js"></script>
+</body>
+
+</html>
