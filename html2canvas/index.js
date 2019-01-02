@@ -61,6 +61,9 @@ function checkQrcodeFinished(callback) {
 
 	document.querySelector('#again').addEventListener('click', handleClick, false)
 	document.querySelector('#share').addEventListener('click', handleClick, false)
+
+	var offsetTop = document.querySelector('.to-hide').offsetTop
+	document.querySelector('.cover').style.top = offsetTop + 'px'
 })();
 
 checkQrcodeFinished(function () {
@@ -73,7 +76,7 @@ checkQrcodeFinished(function () {
 	}).then(function (canvas) {
 		var img = new Image()
 		img.id = 'saveImage'
-		img.src = canvas.toDataURL('image/jpeg')
+		img.src = canvas.toDataURL()
 		document.querySelector('#capture').style['display'] = 'none'
 		document.body.appendChild(img)
 	})

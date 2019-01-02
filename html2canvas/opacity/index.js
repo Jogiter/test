@@ -73,13 +73,13 @@ checkQrcodeFinished(function () {
 	}).then(function (canvas) {
 		var img = new Image()
 		img.setAttribute('class', 'save-image')
-		img.src = canvas.toDataURL('image/jpeg')
+		img.src = canvas.toDataURL()
 		document.querySelector('#capture').style['display'] = 'none'
 		document.body.appendChild(img)
 
 		var img1 = new Image()
 		img1.setAttribute('class', 'save-image')
-		img1.src = canvas.toDataURL('image/jpeg')
+		img1.src = canvas.toDataURL()
 		img1.style.opacity = 0
 		document.body.appendChild(img1)
 	})
