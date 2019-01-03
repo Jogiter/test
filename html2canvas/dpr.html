@@ -7,21 +7,51 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
 	<style>
-		body,
-		html {
-			padding: 0px;
-			margin: 0px;
+		* {
+			/* padding: 0px;
+			margin: 0px; */
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.container {
+			margin: 5px 15px;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+
+		.flex1 {
+			-webkit-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
 		}
 
 		canvas {
-			max-width: 100%;
+			border: 1px solid #000;
+			width: 100%;
 		}
 	</style>
 </head>
 
 <body>
 
-	<canvas class="my-canvas" width=300 height=300></canvas>
+	<div class="container">
+		<div class="item">
+			<h2>ctx.scale(dpr, dpr);</h2>
+			<canvas class="dpr"></canvas>
+		</div>
+		<div class="item flex1">
+			<h2>no-scale</h2>
+			<canvas class="no-dpr"></canvas>
+		</div>
+	</div>
+
+
 
 	<script>
 		function setupCanvas(canvas) {
@@ -40,25 +70,28 @@
 			return ctx;
 		}
 
+		function draw(ctx) {
+			ctx.lineWidth = 1;
+			ctx.beginPath();
+			ctx.moveTo(280, 10);
+			ctx.lineTo(220, 120);
+			ctx.stroke();
+			ctx.fillText('hello world', 200, 50);
+
+			var img = new Image()
+			img.onload = function() {
+				ctx.drawImage(img, 10, 10, img.width / 2, img.height / 2)
+			}
+			img.src = 'https://img.jogiter.cn/lm.jpg'
+		}
+
 		// Now this line will be the same size on the page
 		// but will look sharper on high-DPI devices!
-		var ctx = setupCanvas(document.querySelector('.my-canvas'));
-		ctx.mozImageSmoothingEnabled = false;
- 		ctx.webkitImageSmoothingEnabled = false;
-	 	ctx.msImageSmoothingEnabled = false;
-	 	ctx.imageSmoothingEnabled = false;
+		var dpr = setupCanvas(document.querySelector('.dpr'));
+		var nodpr = document.querySelector('.no-dpr').getContext('2d');
 
-		ctx.lineWidth = 1;
-		ctx.beginPath();
-		ctx.moveTo(250, 250);
-		ctx.lineTo(140, 280);
-		ctx.stroke();
-
-		var img = new Image()
-		img.onload = function() {
-			ctx.drawImage(img, 0, 0, 200, 93)
-		}
-		img.src = 'https://img.jogiter.cn/tennis/fdr.jpg'
+		draw(dpr)
+		draw(nodpr)
 	</script>
 </body>
 
