@@ -33,16 +33,6 @@ function setUrlParam(key, value) {
 	return ret;
 }
 
-var url = setUrlParam('timestamp', Date.now(), location.href)
-new QRCode(document.querySelector('#drawTable'), {
-	text: url,
-	width: 72,
-	height: 72,
-	colorDark: "#000000",
-	colorLight: "#ffffff",
-	correctLevel: QRCode.CorrectLevel.H
-});
-
 // 生成 qrcode 是一个异步操作，因此需要等待
 function checkQrcodeFinished(callback) {
 	var timer = setInterval(function () {
@@ -66,20 +56,34 @@ function events() {
 	document.querySelector('.cover').style.top = offsetTop + 'px'
 };
 
-document.addEventListener('DOMContentLoaded', events);
+function main() {
+    events();
 
-checkQrcodeFinished(function () {
-	html2canvas(document.querySelector("#capture"), {
-		useCORS: true,
-		onclone: function(el) {
-			el.querySelector('.hide').style.display = 'block'
-			return el
-		}
-	}).then(function (canvas) {
-		var img = new Image()
-		img.id = 'saveImage'
-		img.src = canvas.toDataURL()
-		document.querySelector('#capture').style['display'] = 'none'
-		document.body.appendChild(img)
-	})
-})
+    var url = setUrlParam('timestamp', Date.now(), location.href)
+    new QRCode(document.querySelector('#drawTable'), {
+        text: url,
+        width: 72,
+        height: 72,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+		
+		checkQrcodeFinished(function () {
+			html2canvas(document.querySelector("#capture"), {
+				useCORS: true,
+				onclone: function(el) {
+					el.querySelector('.hide').style.display = 'block'
+					return el
+				}
+			}).then(function (canvas) {
+				var img = new Image()
+				img.id = 'saveImage'
+				img.src = canvas.toDataURL()
+				document.querySelector('#capture').style['display'] = 'none'
+				document.body.appendChild(img)
+			})
+		})
+  }
+
+document.addEventListener('DOMContentLoaded', main);
