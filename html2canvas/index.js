@@ -54,7 +54,7 @@ function checkQrcodeFinished(callback) {
 	}, 20);
 }
 
-(function events() {
+function events() {
 	function handleClick() {
 		alert(this.textContent || this.innerHTML)
 	}
@@ -64,7 +64,9 @@ function checkQrcodeFinished(callback) {
 
 	var offsetTop = document.querySelector('.to-hide').offsetTop
 	document.querySelector('.cover').style.top = offsetTop + 'px'
-})();
+};
+
+document.addEventListener('DOMContentLoaded', events);
 
 checkQrcodeFinished(function () {
 	html2canvas(document.querySelector("#capture"), {
