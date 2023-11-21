@@ -6,11 +6,7 @@ import { writeFileSync, readFileSync } from 'fs'
 import OSS from 'ali-oss';
 
 const client = new OSS({
-	region: 'oss-cn-shenzhen',
-	accessKeyId: 'LTAI5tJQPpm3RUYoNbBNM2oD',
-	accessKeySecret: 'c8XyVLvBMGVyDRdyQZFKE2hHXvqTfw',
-	bucket: 'img-jogiter',
-	secure: true,
+	
 })
 
 dotenv.config();
