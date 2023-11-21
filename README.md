@@ -8,3 +8,4 @@ online test for all demos
 	- [demo-opacity](https://blog.jogiter.cn/test/html2canvas/opacity/)
 	- [dpr](https://blog.jogiter.cn/test/html2canvas/dpr.html)
 - [audio-voice](https://blog.jogiter.cn/test/say/)
+- [music]()
